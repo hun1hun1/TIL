@@ -1,6 +1,16 @@
-# Basic_Concepts
+# 기초 개념(Basic_Concepts)
 
 ## 목차
+
+- [알고리즘이란?](#알고리즘이란)
+- [데이터 추상화](#데이터-추상화)
+- [성능 분석](#성능-분석)
+  - [빅오(Big "oh") 표기법](#빅오big-oh-표기법)
+- [실습](#실습)
+  - [Binary_Search](#binary_search)
+    - [Iterative](#iterative)
+    - [Recursive](#recursive)
+    - [반복문과 재귀 호출](#반복문과-재귀-호출)
 
 ## 알고리즘이란?
 
@@ -43,4 +53,68 @@
 
 빅오 표기법 외에도 빅오메가, 빅세타 표현법도 있다. 빅오메가는 lower bound(하한)을 나타내고 빅세타는 하한과 상한을 동시에 나타낸다. 일반적으로 성능이 얼마나 나쁜지가 중요하므로 상한을 나타내는 빅오 표기법을 많이 사용한다.
 
-빅오 표기법은 상수를 제거하고 입력 크기가 증가함에 따라 증가하는 수행 시간을 분석한다. 예를 들어, 수행 시간이 1000n인 알고리즘과 0.1n<sup>2</sup>인 알고리즘이 있다고 가정해보자. n이 1일 때는 1000n인 알고리즘이 수행시간이 더 오래걸린다. 하지만 n이 증가할수록 격차가 줄어들고 결국에는 0.1n<sup>2</sup>인 알고리즘이 더 오래걸리게 된다. 즉 빅오 표기법은 입력 크기가 커질수록 증가하는 수행 시간의 성장률을 비교하기 위한 방법으로 적합하다.
+빅오 표기법은 상수를 제거하고 입력 크기가 증가함에 따라 증가하는 수행 시간을 분석한다.\
+예를 들어, 수행 시간이 1000n인 알고리즘과 0.1n<sup>2</sup>인 알고리즘이 있다고 가정해보자. n이 1일 때는 1000n인 알고리즘이 수행시간이 더 오래걸린다. 하지만 n이 증가할수록 격차가 줄어들고 결국에는 0.1n<sup>2</sup>인 알고리즘이 더 오래걸리게 된다. 즉 빅오 표기법은 입력 크기가 커질수록 증가하는 수행 시간의 성장률을 비교하기 위한 방법으로 적합하다.
+
+## 실습
+
+### Binary_Search
+
+#### Iterative
+
+```c
+int bin_search(int list[], int search_num, int left, int right)
+{
+	int middle;
+	while (left <= right)
+	{
+		middle = (left + right) / 2;
+		if (list[middle] == search_num)
+		{
+			return middle;
+		}
+		else if (list[middle] < search_num)
+		{
+			left = middle + 1;
+		}
+		else
+		{
+			right = middle - 1;
+		}
+	}
+	return -1;
+}
+```
+
+#### Recursive
+
+```c
+int bin_search(int list[], int search_num, int left, int right, int size, int count)
+{
+	int middle = (left + right) / 2;
+	if (size == count)
+	{
+		return -1;
+	}
+		if (list[middle] == search_num)
+		{
+			return middle;
+		}
+		else if (list[middle] < search_num)
+		{
+			count++;
+			return bin_search(list, search_num, middle + 1, right, size, count);
+		}
+		else if (list[middle] > search_num)
+		{
+			count++;
+			return bin_search(list, search_num, left, middle - 1, size, count);
+		}
+
+	return -1;
+}
+```
+
+#### 반복문과 재귀 호출
+
+일반적으로 반복문으로 구현한 함수는 재귀 호출로 바꿀 수 있으며, 반대로 재귀 함수 역시 반복문으로 바꿀 수 있다.
