@@ -1,6 +1,8 @@
 # Unreal_Engine
 
-직업 훈련 과정에서 언리얼 엔진에 대해 배운 내용을 시간 순으로 정리해놓은 폴더입니다.\
+직업 훈련 과정에서 언리얼 엔진에 대해 배운 내용을 시간 순으로 정리해놓은 폴더입니다.
+
+---
 This folder contains chronological documentation of what I learned about Unreal Engine during a vocational training program.
 
 ## 목차

@@ -10,7 +10,6 @@
   - [Binary_Search](#binary_search)
     - [Iterative](#iterative)
     - [Recursive](#recursive)
-    - [반복문과 재귀 호출](#반복문과-재귀-호출)
 
 ## 알고리즘이란?
 
@@ -115,6 +114,5 @@ int bin_search(int list[], int search_num, int left, int right, int size, int co
 }
 ```
 
-#### 반복문과 재귀 호출
-
+---
 일반적으로 반복문으로 구현한 함수는 재귀 호출로 바꿀 수 있으며, 반대로 재귀 함수 역시 반복문으로 바꿀 수 있다.
