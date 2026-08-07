@@ -68,7 +68,7 @@ int pop()
 
 일반적으로 단일 연결 리스트를 사용하며, 리스트의 Head를 Top으로 사용한다.
 
-```c
+```c++
 struct SNode {
 	int nData;
 	SNode* pNext;
@@ -105,3 +105,116 @@ SNode* ListPop(SNode* top)
 
 큐는 삽입은 뒤(rear)에서 삭제는 앞(front)에서 일어나는 순서 목록이다.\
 가장 먼저 삽입된 데이터가 가장 먼저 삭제된다고 하여 First-In-First-Out(FIFO)라고도 한다.
+
+### 큐의 특징
+
+- 데이터의 삽입(Enqueue)은 항상 큐의 뒤쪽(rear)에서 이루어진다.
+
+- 데이터의 삭제(Dequeue)은 항상 큐의 앞쪽(front)에서 이루어진다.
+
+- 먼저 저장된 데이터가 먼저 처리된다.
+
+- 배열이나 연결 리스트를 이용하여 구현할 수 있다.
+
+### 큐의 장점
+
+- 입력된 순서대로 데이터를 처리할 수 있다.
+
+- 삽입과 삭제 연산을 모두 O(1)에 수행할 수 있다.
+
+- 순차적인 작업 처리에 적합하다.
+
+### 큐의 단점
+
+- 중간 원소에 직접 접근하거나 삽입, 삭제하기 어렵다.
+
+- 배열 기반 구현에서는 원형 큐를 사용하지 않으면 공간을 비효율적으로 사용할 수 있다.
+
+- 연결 리스트 기반 구현은 포인터를 저장하기 위한 추가 메모리가 필요하다.
+
+### 배열을 이용한 큐 구현
+
+```c
+const int MAX_SIZE = 100;
+int rear = -1;
+int front = -1;
+int queue[MAX_SIZE];
+
+void EnQueue(int value)
+{
+	if (front == MAX_SIZE - 1) return;
+
+	queue[++front] = value;
+}
+
+int DeQueue()
+{
+	if (front == rear) return -1;
+	return queue[++rear];
+}
+```
+
+#### 배열을 이용한 구현의 장점
+
+- 구현이 간단하다.
+
+- 메모리가 연속적으로 배치되어 접근 속도가 빠르다.
+
+#### 배열을 이용한 구현의 단점
+
+- 단순 배열로 구현하면 앞쪽 공간이 비어도 재사용하지 못하는 문제가 발생한다.
+
+### 연결 리스트를 이용한 큐 구현
+
+```c++
+struct SNode {
+	int nData;
+	SNode* pNext;
+};
+
+SNode* CreateNode(SNode* pNode, int data)
+{
+	SNode* pTemp = NULL;
+
+	pTemp = new SNode();
+	pTemp->nData = data;
+	pTemp->pNext = NULL;
+	if (pNode != NULL) pNode->pNext = pTemp;
+
+	return  pTemp;
+}
+
+SNode* pRear = NULL;
+SNode* pFront = NULL;
+
+pFront = CreateNode(pFront, 10);
+pRear = pFront;
+
+pFront = CreateNode(pFront, 20);
+pFront = CreateNode(pFront, 30);
+pFront = CreateNode(pFront, 40);
+pFront = CreateNode(pFront, 50);
+
+while (pRear != pFront)
+{
+    printf("%d\n", pRear->nData);
+    SNode* pDel = pRear;
+    pRear = pRear->pNext;
+    delete pDel;
+}
+printf("%d\n", pRear->nData);
+delete pRear;
+```
+
+#### 연결 리스트를 이용한 구현의 장점
+
+- 큐의 크기를 동적으로 늘릴 수 있다.
+
+- 삽입과 삭제를 모두 O(1)에 수행할 수 있다.
+
+#### 연결 리스트를 이용한 구현의 단점
+
+- 노드를 위한 포인터 공간이 추가로 필요하다.
+
+- 배열보다 구현이 다소 복잡하다.
+
