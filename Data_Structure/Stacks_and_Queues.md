@@ -2,6 +2,31 @@
 
 ## 목차
 
+- [스택(Stack)](#스택stack)
+  - [스택의 특징](#스택의-특징)
+  - [스택의 장점](#스택의-장점)
+  - [스택의 단점](#스택의-단점)
+  - [배열을 이용한 스택 구현](#배열을-이용한-스택-구현)
+    - [배열을 이용한 구현의 장점](#배열을-이용한-구현의-장점)
+    - [배열을 이용한 구현의 단점](#배열을-이용한-구현의-단점)
+  - [연결 리스트(Linked List)를 이용한 스택 구현](#연결-리스트linked-list를-이용한-스택-구현)
+    - [연결 리스트를 이용한 구현의 장점](#연결-리스트를-이용한-구현의-장점)
+    - [연결 리스트를 이용한 구현의 단점](#연결-리스트를-이용한-구현의-단점)
+
+- [큐(Queue)](#큐queue)
+  - [큐의 특징](#큐의-특징)
+  - [큐의 장점](#큐의-장점)
+  - [큐의 단점](#큐의-단점)
+  - [배열을 이용한 큐 구현](#배열을-이용한-큐-구현)
+    - [배열을 이용한 구현의 장점](#배열을-이용한-구현의-장점)
+    - [배열을 이용한 구현의 단점](#배열을-이용한-구현의-단점)
+  - [연결 리스트를 이용한 큐 구현](#연결-리스트를-이용한-큐-구현)
+    - [연결 리스트를 이용한 구현의 장점](#연결-리스트를-이용한-구현의-장점)
+    - [연결 리스트를 이용한 구현의 단점](#연결-리스트를-이용한-구현의-단점)
+
+- [중위 표기법(Infix)과 후위 표기법(Postfix)](#중위-표기법infix과-후위-표기법postfix)
+  - [실습 - 스택을 이용하여 중위 표기법을 후위 표기법으로 변환](#실습-스택을-이용하여-중위-표기법을-후위-표기법으로-변환)
+
 ## 스택(Stack)
 
 스택은 삽입과 삭제가 top이라고 불리는 한쪽 끝에서 일어나는 순서 목록이다.\
@@ -218,3 +243,79 @@ delete pRear;
 
 - 배열보다 구현이 다소 복잡하다.
 
+## 중위 표기법(Infix)과 후위 표기법(Postfix)
+
+중위 표기법과 후위 표기법은 수식에서 연산자와 피연산자를 배치하는 방식들 중 하나이다.
+
+우리가 일반적으로 사용하는 수식 표기 방식은 중위 표기법(Infix)이다.\
+예) A + B, (A + B) * C
+
+후위 표기법(Postfix)은 연산자가 피연산자의 뒤에 위치하는 표기법이다.\
+예) A B +, A B + C *
+
+Postfix는 연산자의 우선순위와 괄호를 별도로 고려하지 않아도 된다.\
+즉 수식 자체에 연산 순서가 표현되어 있기 때문에 컴퓨터가 수식의 연산 순서를 처리하는 데 유리하다.
+
+Infix -> Postfix 변환과 Postfix 수식 계산은 스택을 사용해 쉽게 구현할 수 있다.
+
+### [실습] 스택을 이용하여 중위 표기법을 후위 표기법으로 변환
+
+```c
+int precedence(char op) {
+    if (op == '+' || op == '-')
+        return 1;
+    if (op == '*' || op == '/' || op == '%')
+        return 2;
+    return 0;
+}
+
+int isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%';
+}
+
+void infixToPostfix(char* infix, char* postfix) {
+    int i, j, top = -1;
+    char stack[MAX_SIZE], ch;
+
+    for (i = 0, j = 0; infix[i] != '\0'; i++) {
+        ch = infix[i];
+
+        if (isalnum(ch)) {
+            postfix[j++] = ch;
+        }
+        else if (ch == '(') {
+            stack[++top] = ch;
+        }
+        else if (ch == ')') {
+            while (top != -1 && stack[top] != '(') {
+                postfix[j++] = stack[top--];
+            }
+            top--; // remove the '(' from the stack
+        }
+        else if (isOperator(ch)) {
+            while (top != -1 && precedence(ch) <= precedence(stack[top])) {
+                postfix[j++] = stack[top--];
+            }
+            stack[++top] = ch;
+        }
+        else if (ch == ' ')
+        {
+
+        }
+        else {
+            printf("Error: Invalid character '%c'\n", ch);
+            exit(1);
+        }
+    }
+
+    while (top != -1) {
+        if (stack[top] == '(') {
+            printf("Error: Unmatched parentheses\n");
+            exit(1);
+        }
+        postfix[j++] = stack[top--];
+    }
+
+    postfix[j] = '\0';
+}
+```
