@@ -77,15 +77,15 @@ struct Node
 
 1. 반사성(Reflexivity)\
     모든 원소 a에 대해 aRa가 성립해야 한다.
-    > A ≡ A
+    > **A ≡ A**
 
 2. 대칭성(Symmetry)\
     aRb이면 bRa도 성립해야 한다.
-    > A ≡ B 라면 B ≡ A
+    > **A ≡ B 라면 B ≡ A**
 
 3. 추이성(Transivity)\
     aRb이고 bRc이면 aRc가 성립해야 한다.
-    > A ≡ B, B ≡ C 라면 A ≡ C
+    > **A ≡ B, B ≡ C 라면 A ≡ C**
 
 동치 관계가 정의되면 서로 동치인 원소들을 하나의 집합으로 묵을 수 있다.\
 하나의 원소는 정확히 하나의 동치 클래스에 속한다.
