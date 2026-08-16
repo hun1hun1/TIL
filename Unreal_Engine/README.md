@@ -9,3 +9,4 @@ This folder contains chronological documentation of what I learned about Unreal 
 
 - [260726 - 키워드 정리](260727_키워드_정리_Unreal.md)
 - [260802 - 에디터 기초](260802_에디터_기초_Unreal.md)
+- [260809 - 블루프린트 기초](260809_블루프린트_기초_Unreal.md)
