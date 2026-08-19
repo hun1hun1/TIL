@@ -40,9 +40,9 @@
 연결 리스트로 이진 트리를 표현하는 경우 왼쪽 자식 노드와 오른쪽 자식 노드를 가리키는 포인터로 쉽게 표현할 수 있다.
 
 ```c
-struct node {
+struct Node {
     int data;
-    node* leftChild, rightChild;
+    Node* leftChild, rightChild;
 }
 ```
 
